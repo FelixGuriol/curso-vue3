@@ -6,10 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hola Mundo Vue</title>
 
+    <link rel="stylesheet" href="./style.css">
+
     <script src="https://unpkg.com/vue@3"></script>
     
 </head>
 <body>
-    <h1>Work</h1>
+    <div id="app">
+        <ul>
+            <li v-for="(movie, index) in user.movies" :key="index">{{movie}}</li>
+        </ul>
+<!--         <h1 v-if="user.age <= 0 || user.age > 110" class="rango_err">Tu edad esta fuera de tango, verificala.</h1>
+        <h1 v-else-if="user.age >= 18" class="good">Eres mayor de edad</h1>
+        <h1 v-else class="error">Eres menor de edad</h1> -->
+    </div>
+
+    <script src="./main.js"></script>
+
+    <script>
+        const mountApp = app.mount("#app")
+    </script>
+
 </body>
 </html>
