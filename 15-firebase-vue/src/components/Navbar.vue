@@ -27,7 +27,7 @@
         <router-link to="/about">About</router-link>
     </li>
     <li>
-        <router-link to="/">Proyectos</router-link>
+        <router-link to="/proyectos">Proyectos</router-link>
     </li>
   </ul>
 </template>
