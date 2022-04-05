@@ -8,12 +8,12 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/about',
-    name: 'about',
+    path: '/login',
+    name: 'Login',
     // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
+    // this generates a separate chunk (login.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
   },
   {
     path: '/proyectos',
@@ -21,7 +21,8 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (proyectos.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "proyectos" */ '../views/Proyectos.vue')
+    component: () => import(/* webpackChunkName: "proyectos" */ '../views/Proyectos.vue'),
+    meta: { protect: true }
   },
   {
     path: '/reg-proyects',
@@ -29,7 +30,8 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (reg-proyects.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "reg-proyects" */ '../views/Created.vue')
+    component: () => import(/* webpackChunkName: "reg-proyects" */ '../views/Created.vue'),
+    meta: { protect: true }
   },
   {
     path: '/edit-proyect/:id',
@@ -37,7 +39,8 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (edit-proyects.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "edit-proyects" */ '../views/Edit.vue')
+    component: () => import(/* webpackChunkName: "edit-proyects" */ '../views/Edit.vue'),
+    meta: { protect: true }
   }
 ]
 
@@ -45,5 +48,19 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+router.beforeEach(//sirve como middleware para ver si estas logeado o no
+  (to, from, next) => {
+    if (to.meta.protect) {
+      if (localStorage.getItem("user")) {
+        next();
+      } else {
+        next("/login");
+      }
+    } else {
+      next();
+    }
+  }
+)
 
 export default router

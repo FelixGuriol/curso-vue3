@@ -22,15 +22,15 @@ export default {
   },
   methods: {
     async getProjects() {
+      const user = JSON.parse(localStorage.getItem("user"))
       const res = await fetch(
-        "https://crud-vue-c1481-default-rtdb.firebaseio.com/projects.json"
+        `https://crud-vue-c1481-default-rtdb.firebaseio.com/projects/${user.localId}.json?auth=${user.idToken}`
       );
       const data = await res.json();
 
       for (let i in data) {
         this.projects.push({id:i, ...data[i]});
       }
-      console.log(this.projects);
     },
   },
 };

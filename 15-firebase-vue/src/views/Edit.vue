@@ -107,15 +107,17 @@ export default {
   },
   methods: {
     async getProyect() {
+         const user = JSON.parse(localStorage.getItem("user"));
       const res = await fetch(
-        `https://crud-vue-c1481-default-rtdb.firebaseio.com/projects/${this.id}.json`
+        `https://crud-vue-c1481-default-rtdb.firebaseio.com/projects/${user.localId}/${this.id}.json?auth=${user.idToken}`
       );
       const data = await res.json();
       this.project = data;
     },
     async updateProjects() {
+      const user = JSON.parse(localStorage.getItem("user"));
       const res = await fetch(
-        `https://crud-vue-c1481-default-rtdb.firebaseio.com/projects/${this.id}.json`,
+        `https://crud-vue-c1481-default-rtdb.firebaseio.com/projects/${user.localId}/${this.id}.json?auth=${user.idToken}`,
         {
           method: "PATCH",
           body: JSON.stringify(this.project),
