@@ -1,4 +1,4 @@
-import {computed, ref} from 'vue'
+import {computed, provide, ref} from 'vue'
 
 export function useContador(){
     const contador = ref(0)
@@ -8,5 +8,8 @@ export function useContador(){
     const aumentar = () => contador.value++
     const disminuir = () => contador.value--
 
-    return {contador, color, aumentar, disminuir}
+    provide("valorContador",contador)
+    provide("color",color)
+
+    return {aumentar, disminuir}
 }
